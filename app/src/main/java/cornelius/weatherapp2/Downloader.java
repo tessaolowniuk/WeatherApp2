@@ -56,7 +56,7 @@ public class Downloader<T> extends AsyncTask<String, Void, T>
          * Override this function.  Create a function that parses the data
          * from the input stream and returns an object of type <code>T</code>
          *
-         * @param ios InputStream from the web request
+         * @param in InputStream from the web request
          * @return T object created from the input stream
          */
         T parseResponse(InputStream in);
