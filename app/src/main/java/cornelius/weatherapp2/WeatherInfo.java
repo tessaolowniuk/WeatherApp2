@@ -8,7 +8,6 @@ import java.util.List;
  */
 public class WeatherInfo
 {
-
     public WeatherLocation location = new WeatherLocation();
     public CurrentObservations current = new CurrentObservations();
     public List<DayForecast> forecast = new ArrayList<>(8);
