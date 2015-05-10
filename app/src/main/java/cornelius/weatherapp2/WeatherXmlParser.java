@@ -146,7 +146,8 @@ public class WeatherXmlParser
                     val = Double.parseDouble(innerText("value"));
                 } catch (NumberFormatException nfe)
                 {
-                    nfe.printStackTrace();
+                    val = 0;
+                    //nfe.printStackTrace();
                 }
             }
         }

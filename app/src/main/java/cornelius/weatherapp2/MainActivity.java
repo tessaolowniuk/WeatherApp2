@@ -5,14 +5,9 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 
 public class MainActivity extends ActionBarActivity
 {
-    WeatherInfo weatherInfo;
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -21,28 +16,9 @@ public class MainActivity extends ActionBarActivity
 
         // Get latitude and longitude from zip code
         String zipcode = "60563";
-        JSONObject location = new LocationIO().getLocation(zipcode);
-        double latitude = 0;
-        double longitude = 0;
-        try
-        {
-            weatherInfo.location.latitude = location.getDouble("latitude");
-            weatherInfo.location.longitude = location.getDouble("longitude");
-        } catch (JSONException e)
-        {
-            e.printStackTrace();
-        }
+        new LocationIO().getLocation(zipcode);
 
-        //Get weather data from latitude and longitude
-        WeatherInfoIO.WeatherListener weatherListener = new WeatherInfoIO.WeatherListener()
-        {
-            @Override
-            public void handleResult(WeatherInfo result)
-            {
-                weatherInfo = result;
-            }
-        };
-        WeatherInfoIO.loadFromUrl("http://forecast.weather.gov/MapClick.php?lat=" + weatherInfo.location.latitude + "&lon=" + weatherInfo.location.longitude +"&unit=0&lg=english&FcstType=dwml", weatherListener);
+
     }
 
 
