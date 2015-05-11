@@ -28,7 +28,6 @@ public class MainActivity extends ActionBarActivity
         // Get latitude and longitude from zip code
         String zipcode = "60563";
         new LocationIO().getLocation(zipcode);
-
     }
 
 
@@ -154,7 +153,6 @@ public class MainActivity extends ActionBarActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-
         switch (item.getItemId()) {
 
             case R.id.zipcode:
@@ -183,6 +181,4 @@ public class MainActivity extends ActionBarActivity
         }
         return super.onOptionsItemSelected(item);
     }
-
-
 }
