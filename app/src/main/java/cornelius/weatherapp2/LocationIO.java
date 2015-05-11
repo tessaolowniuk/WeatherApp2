@@ -11,19 +11,24 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 /**
+ * Gets latitude and longitude for a given zip code and sends that information to WeatherInfoIO()
  * Created by Cornelius on 5/9/2015.
  */
 public class LocationIO implements Downloader.DownloadListener<JSONObject>
 {
-    JSONObject jsonObject;
-
+    /**
+     * @param zipcode URL amended with zipcode to Downloader to get JSONObject
+     */
     public void getLocation(String zipcode)
     {
         Downloader<JSONObject> downloadInfo = new Downloader<>(this);
         downloadInfo.execute("http://craiginsdev.com/zipcodes/findzip.php?zip=" + zipcode);
-        //return jsonObject;
     }
 
+    /**
+     * @param in InputStream from the web request
+     * @return jsonObject JSONObject parsed from InputStream
+     */
     @Override
     public JSONObject parseResponse(InputStream in)
     {
@@ -45,24 +50,28 @@ public class LocationIO implements Downloader.DownloadListener<JSONObject>
         return null;
     }
 
+    /**
+     * Latitude and longitude are passed to WeatherInfoIO
+     *
+     * @param result Object of type <code>T</code> created in the override parseResponse function
+     */
     @Override
     public void handleResult(JSONObject result)
     {
-        jsonObject = result;
-
-        //Get weather data from latitude and longitude
         WeatherInfoIO.WeatherListener weatherListener = new WeatherInfoIO.WeatherListener()
         {
             @Override
             public void handleResult(WeatherInfo result)
             {
                 WeatherInfo weatherInfo = result;
-                Log.i("WeatherInfo", weatherInfo.location.name);
             }
         };
+
         try
         {
-            WeatherInfoIO.loadFromUrl("http://forecast.weather.gov/MapClick.php?lat=" + jsonObject.getDouble("latitude") + "&lon=" + jsonObject.getDouble("longitude") +"&unit=0&lg=english&FcstType=dwml", weatherListener);
+            WeatherInfoIO.loadFromUrl("http://forecast.weather.gov/MapClick.php?lat=" +
+                    result.getDouble("latitude") + "&lon=" + result.getDouble("longitude")
+                    +"&unit=0&lg=english&FcstType=dwml", weatherListener);
         } catch (JSONException e)
         {
             e.printStackTrace();

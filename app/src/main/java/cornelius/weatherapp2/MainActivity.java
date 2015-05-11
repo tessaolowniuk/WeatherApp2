@@ -16,9 +16,9 @@ public class MainActivity extends ActionBarActivity
 
         // Get latitude and longitude from zip code
         String zipcode = "60563";
+
+        // Sends zip code in order to get latitude and longitude
         new LocationIO().getLocation(zipcode);
-
-
     }
 
 
