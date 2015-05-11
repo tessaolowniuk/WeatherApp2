@@ -4,15 +4,21 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 import android.widget.TextView;
-
 import java.text.NumberFormat;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class MainActivity extends ActionBarActivity
 {
+    private String m_Text = "";
+    Map weather = new HashMap<String, String>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -48,17 +54,14 @@ public class MainActivity extends ActionBarActivity
                 .show();
     }
 
-
     private void metric()
     {
-      /*  final TextView temp = (TextView)findViewById(R.id.temperature);
+        final TextView temp = (TextView)findViewById(R.id.temperature);
         final TextView dew = (TextView)findViewById(R.id.dew);
-
         final TextView pressure = (TextView)findViewById(R.id.pressure);
         final TextView gust = (TextView)findViewById(R.id.gusts);
         final TextView wind = (TextView)findViewById(R.id.windspeed);
         final TextView visibility = (TextView)findViewById(R.id.textView12);
-
         NumberFormat nf = NumberFormat.getInstance();
         nf.setMaximumFractionDigits(2);
         temp.setText(nf.format((Double.parseDouble(weather.get("temp").toString())-32)*5/9) + "º C");
@@ -66,28 +69,52 @@ public class MainActivity extends ActionBarActivity
         pressure.setText(nf.format(Double.parseDouble(weather.get("pressure").toString())*25.4)  + " mmHg");
         gust.setText(nf.format(Double.parseDouble(weather.get("gust").toString())*1.6093)  + " kph");
         wind.setText(weather.get("direction").toString() + " @ " + nf.format(Double.parseDouble(weather.get("wind").toString())*1.6093)  + " kph");
-        visibility.setText(nf.format(Double.parseDouble(weather.get("visibility").toString())*1.6093)  + " km");*/
+        visibility.setText(nf.format(Double.parseDouble(weather.get("visibility").toString())*1.6093)  + " km");
     }
 
     private void imperial()
     {
-        WeatherInfo weather = new WeatherInfo();
-        String tempe = weather.location.toString();
+        final TextView temp = (TextView)findViewById(R.id.temperature);
+        final TextView dew = (TextView)findViewById(R.id.dew);
+        final TextView pressure = (TextView)findViewById(R.id.pressure);
+        final TextView gust = (TextView)findViewById(R.id.gusts);
+        final TextView wind = (TextView)findViewById(R.id.windspeed);
+        final TextView visibility = (TextView)findViewById(R.id.textView12);
 
-
-        new AlertDialog.Builder(this)
-                .setTitle("About")
-                .setMessage(tempe)
-                .setNeutralButton("Ok", new DialogInterface.OnClickListener()
-                {
-                    public void onClick(DialogInterface dialog, int which) {
-                    }
-                })
-                .show();
-
-
+        temp.setText(weather.get("temp").toString() + "º F");
+        dew.setText(weather.get("dew").toString() + "º F");
+        pressure.setText(weather.get("pressure").toString()  + " inHg");
+        gust.setText(weather.get("gust").toString()  + " mph");
+        wind.setText(weather.get("direction").toString() + " @ " + weather.get("wind").toString()  + " mph");
+        visibility.setText(weather.get("visibility").toString()  + " mi");
     }
+
     private void zipcode() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("zipcode")
+        .setMessage("Enter Zipcode of Desired Location");
+        final EditText input = new EditText(this);
+        input.setInputType(InputType.TYPE_CLASS_TEXT);
+        builder.setView(input);
+
+        // Set up the buttons
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        m_Text = input.getText().toString();
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+
+        builder.show();
+    }
+
+    private void recent_zipcodes() {
 
     }
 
@@ -107,7 +134,7 @@ public class MainActivity extends ActionBarActivity
                 .setPositiveButton("Metric", new DialogInterface.OnClickListener()
                 {
                     public void onClick(DialogInterface dialog, int which) {
-                        //metric();
+                        metric();
                     }
                 })
                 .setNegativeButton("Imperial", new DialogInterface.OnClickListener()
@@ -127,16 +154,15 @@ public class MainActivity extends ActionBarActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings)
-        {
-            return true;
-        }
 
         switch (item.getItemId()) {
 
             case R.id.zipcode:
                 zipcode();
+                return true;
+
+            case R.id.recent_zipcode:
+                recent_zipcodes();
                 return true;
 
             case R.id.current_weather:
