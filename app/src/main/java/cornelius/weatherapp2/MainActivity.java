@@ -27,44 +27,10 @@ import java.text.NumberFormat;
 import java.util.HashMap;
 import java.util.Map;
 
+public class MainActivity extends ActionBarActivity {
 
-public class MainActivity extends ActionBarActivity
-    implements Day1Fragment.OnFragmentInteractionListener,
-    Day2Fragment.OnFragmentInteractionListener {
-
-    /**
-     * The number of pages (wizard steps) to show in this demo.
-     */
-    private static final int NUM_PAGES = 8;
-
-    /**
-     * The pager widget, which handles animation and allows swiping horizontally to access previous
-     * and next wizard steps.
-     */
-    private ViewPager mPager;
-    /**
-     * The pager adapter, which provides the pages to the view pager widget.
-     */
-    private PagerAdapter mPagerAdapter;
-
-    private String m_Text = "";
     Map weather = new HashMap<String, String>();
-
-    GestureDetector.OnGestureListener glistener = new GestureDetector.SimpleOnGestureListener(){
-        @Override
-        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-            //swapFragments();
-            return super.onFling(e1, e2, velocityX, velocityY);
-        }
-    };
-    protected GestureDetectorCompat mDetector;
-
-    protected void swapFragments(){
-        android.support.v4.app.FragmentTransaction trans = getSupportFragmentManager().beginTransaction();
-        trans.replace(R.id.container, new Day1Fragment());
-        trans.addToBackStack(null);
-        trans.commit();
-    }
+    String m_Text;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -78,23 +44,6 @@ public class MainActivity extends ActionBarActivity
         LocationIO loc = new LocationIO();
         loc.getLocation(zipcode);
         new LocationIO().getLocation(zipcode);
-
-        // Instantiate a ViewPager and a PagerAdapter.
-        mPager = (ViewPager) findViewById(R.id.pager);
-        mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
-        mPager.setAdapter(mPagerAdapter);
-    }
-
-    @Override
-    public void onBackPressed() {
-        if (mPager.getCurrentItem() == 0) {
-            // If the user is currently looking at the first step, allow the system to handle the
-            // Back button. This calls finish() on this activity and pops the back stack.
-            super.onBackPressed();
-        } else {
-            // Otherwise, select the previous step.
-            mPager.setCurrentItem(mPager.getCurrentItem() - 1);
-        }
     }
 
     public void showMap(Uri geoLocation) {
@@ -102,32 +51,6 @@ public class MainActivity extends ActionBarActivity
         intent.setData(geoLocation);
         if (intent.resolveActivity(getPackageManager()) != null) {
             startActivity(intent);
-        }
-    }
-
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        //this.mDetector.onTouchEvent(event);
-        return super.onTouchEvent(event);
-    }
-    /**
-     * A simple pager adapter that represents 5 ScreenSlidePageFragment objects, in
-     * sequence.
-     */
-    private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
-        public ScreenSlidePagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        @Override
-        public android.support.v4.app.Fragment getItem(int position) {
-            return position % 2 == 0 ? Day1Fragment.newInstance("","") :
-                    Day2Fragment.newInstance("","");
-        }
-
-        @Override
-        public int getCount() {
-            return NUM_PAGES;
         }
     }
 
@@ -212,17 +135,25 @@ public class MainActivity extends ActionBarActivity
 
         builder.show();
     }
-
+    //Zips are currently hardcoded, need to link array to make this dynamic
     private void recent_zipcodes() {
-
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.recent_zipcode)
+                .setItems(R.array.zips, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // The 'which' argument contains the index position
+                        // of the selected item
+                    }
+                });
+        builder.show();
     }
 
     private void current_weather() {
-
+        setContentView(R.layout.fragment_main);
     }
 
     private void forecast_weather() {
-
+        setContentView(R.layout.forecast_fragment);
     }
 
     //Allows user to select what units they would like to be displayed
@@ -233,13 +164,13 @@ public class MainActivity extends ActionBarActivity
                 .setPositiveButton("Metric", new DialogInterface.OnClickListener()
                 {
                     public void onClick(DialogInterface dialog, int which) {
-                        metric();
+                        //metric();
                     }
                 })
                 .setNegativeButton("Imperial", new DialogInterface.OnClickListener()
                 {
                     public void onClick(DialogInterface dialog, int which) {
-                        imperial();
+                        //imperial();
                     }
                 })
                 .show();
@@ -280,26 +211,5 @@ public class MainActivity extends ActionBarActivity
                 return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-
-    }
-
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
-
-        public PlaceholderFragment() {
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-            return rootView;
-        }
     }
 }

@@ -24,4 +24,12 @@
     <string name="weather_description">Weather Description</string>
     <string name="current_date">Current Date:</string>
     <string name="current_time">Current Time:</string>
+
+    <string-array name="zips">
+        <item>60540</item>
+        <item>60451</item>
+        <item>54652</item>
+        <item>60543</item>
+        <item>60513</item>
+    </string-array>
 </resources>
