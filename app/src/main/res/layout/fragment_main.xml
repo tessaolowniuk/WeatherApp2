@@ -9,13 +9,14 @@
     tools:context=".MainActivityFragment">
 
     <ImageView
-        android:layout_width="316dp"
-        android:layout_height="324dp"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_centerInParent="true"
         android:id="@+id/imageView"
         android:layout_row="3"
         android:layout_column="2"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="false"
+        android:layout_alignParentStart="false"
         android:layout_above="@+id/textView"
         android:layout_below="@+id/editText3" />
 
@@ -254,7 +255,7 @@
         android:layout_alignTop="@+id/textView"
         android:layout_toEndOf="@+id/editText3" />
 
-    <EditText
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/editText"
@@ -264,7 +265,7 @@
         android:layout_alignBottom="@+id/editText2"
         android:layout_alignParentStart="true" />
 
-    <EditText
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/editText2"
@@ -273,11 +274,11 @@
         android:layout_alignParentEnd="true"
         android:background="#648c8c8c" />
 
-    <EditText
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/editText3"
-        android:text="TOP INFORMATION"
+        android:text="LOCATION"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 

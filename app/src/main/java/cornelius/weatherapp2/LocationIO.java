@@ -16,11 +16,13 @@ import java.io.InputStreamReader;
  */
 public class LocationIO implements Downloader.DownloadListener<JSONObject>
 {
+    static WeatherInfo weatherInfo;
     /**
      * @param zipcode URL amended with zipcode to Downloader to get JSONObject
      */
     public void getLocation(String zipcode)
     {
+        weatherInfo = null;
         Downloader<JSONObject> downloadInfo = new Downloader<>(this);
         downloadInfo.execute("http://craiginsdev.com/zipcodes/findzip.php?zip=" + zipcode);
     }
@@ -63,7 +65,7 @@ public class LocationIO implements Downloader.DownloadListener<JSONObject>
             @Override
             public void handleResult(WeatherInfo result)
             {
-                WeatherInfo weatherInfo = result;
+                weatherInfo = result;
             }
         };
 

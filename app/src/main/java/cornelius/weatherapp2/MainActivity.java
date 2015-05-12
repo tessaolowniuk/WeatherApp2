@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.TextView;
+
 import java.text.NumberFormat;
 import java.util.HashMap;
 import java.util.Map;
@@ -28,7 +29,8 @@ public class MainActivity extends ActionBarActivity
         // Get latitude and longitude from zip code
         String zipcode = "60563";
         // Sends zip code in order to get latitude and longitude
-        new LocationIO().getLocation(zipcode);
+        LocationIO loc = new LocationIO();
+        loc.getLocation(zipcode);
     }
 
 
