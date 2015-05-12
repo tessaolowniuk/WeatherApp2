@@ -22,5 +22,6 @@
     <string name="wind_speeds">Wind Speed:</string>
     <string name="gusts">Gusts:</string>
     <string name="weather_description">Weather Description</string>
-    <string name="current_date">Current Date</string>
+    <string name="current_date">Current Date:</string>
+    <string name="current_time">Current Time:</string>
 </resources>
