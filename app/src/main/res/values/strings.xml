@@ -8,8 +8,17 @@
     <string name="forecast">7-Day Forecast</string>
     <string name="units">Units</string>
     <string name="about">About</string>
-
-<!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-
+    <string name="PM">               PM                 </string>
+    <string name="AM">               AM                 </string>
+    <string name="high">High:</string>
+    <string name="low">Low:</string>
+    <string name="current_location">Current Location</string>
+    <string name="temperature">Temperature:</string>
+    <string name="dew_point_temp">Dew Point Temp:</string>
+    <string name="humidity">Humidity:</string>
+    <string name="pressure">Pressure:</string>
+    <string name="visibility">Visibility:</string>
+    <string name="wind_speeds">Wind Speed:</string>
+    <string name="gusts">Gusts:</string>
 </resources>
